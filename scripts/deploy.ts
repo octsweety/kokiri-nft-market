@@ -54,11 +54,15 @@ async function deploy() {
         console.log(`Deployed KokiriNFT... (${nft.address})`);
     }
     const salesFactory: KokiriSales__factory = new KokiriSales__factory(deployer);
-    let sales: KokiriSales;// = salesFactory.attach(salesAddress).connect(deployer);
+    let sales: KokiriSales = salesFactory.attach(salesAddress).connect(deployer);
     if ("redeploy" && true) {
         sales = await salesFactory.deploy(nft.address, gya.address);
         console.log(`Deployed KokiriSales... (${sales.address})`);
     }
+
+    console.log("Setting minter and admin...");
+    await nft.setMinter('0xbC924332E2E7d8F2e9914aA0e8b325b90EA881EA');
+    await sales.setAdmin('0xbC924332E2E7d8F2e9914aA0e8b325b90EA881EA');
 
     const afterBalance = await deployer.getBalance();
     console.log(

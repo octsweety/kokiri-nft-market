@@ -66,12 +66,10 @@ contract KokiriSales is Ownable, Pausable, IERC721Receiver {
     }
 
     function setFeeAddress(address _addr) external onlyByOwner {
-        require(_addr != address(0), "!address");
         feeAddress = _addr;
     }
 
     function setAdmin(address _admin) external onlyByOwner {
-        require(_admin != address(0), "!address");
         admin = _admin;
     }
 
